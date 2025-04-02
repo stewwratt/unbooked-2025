@@ -1,0 +1,17 @@
+{
+    "name": "unbooked-2025",
+    "private": true,
+    "workspaces": [
+      "unbooked-backend",
+      "unbooked-frontend"
+    ],
+    "scripts": {
+      "start:backend": "cd unbooked-backend && npx wrangler dev",
+      "start:frontend": "cd unbooked-frontend && npm start",
+      "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\""
+    },
+    "devDependencies": {
+      "concurrently": "^7.0.0"
+    }
+  }
+  
