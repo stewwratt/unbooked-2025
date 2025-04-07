@@ -1,25 +1,18 @@
-import logo from './logo.svg';
+import React from 'react';
+import ServiceBooking from './components/ServiceBooking';
 import './App.css';
+import unbookedLogo from './assets/unbooked-logo.png';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          The beginning of something special
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <div className="logo-container">
+        <img src={unbookedLogo} alt="Unbooked Logo" className="logo" />
+      </div> */}
+      <ServiceBooking />
     </div>
   );
 }
 
 export default App;
+

@@ -1,0 +1,108 @@
+.date-selector {
+    padding: 16px 24px;
+    background: #000;
+    position: relative;
+    border-bottom: none;
+}
+
+.date-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 8px;
+    padding: 4px 0;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    margin-right: 48px;
+    /* Space for calendar button */
+    mask-image: linear-gradient(to right, black 90%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 90%, transparent 100%);
+}
+
+.date-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.date-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    height: 48px;
+    border: none;
+    background: none;
+    border-radius: 24px;
+    padding: 0;
+    gap: 0;
+    color: #fff;
+    text-align: center;
+}
+
+.date-button.selected {
+    background-color: #6366f1;
+    color: white;
+}
+
+.day-number {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+.day-name {
+    font-size: 12px;
+    color: #999;
+    line-height: 16px;
+}
+
+.date-button.selected .day-name {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.calendar-button {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+}
+
+.calendar-popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    /* Bottom sheet on mobile */
+    z-index: 1000;
+}
+
+.calendar-popup-content {
+    background: #111;
+    width: 100%;
+    max-height: 80vh;
+    border-radius: 16px 16px 0 0;
+    padding: 20px;
+    position: relative;
+    color: #fff;
+}
+
+.close-button {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #fff;
+}
