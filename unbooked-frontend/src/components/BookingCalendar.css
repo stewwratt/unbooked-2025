@@ -52,21 +52,29 @@
     cursor: pointer;
     border-radius: 100px;
     width: fit-content;
+    transition: background-color 0.3s ease;
+}
+
+.provider-button:hover {
+    background: rgba(255, 255, 255, 0.15);
 }
 
 .time-slots {
     display: flex;
     flex-direction: column;
-    gap: 1px;
     background: #000;
     flex: 1;
-    padding: 0;
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 24px;
+    box-sizing: border-box;
 }
 
 .time-slot {
     background: #000;
     border: none;
-    padding: 24px;
+    padding: 24px 0;
     text-align: left;
     color: #fff;
     position: relative;
@@ -78,8 +86,6 @@
     transition: background-color 0.3s ease;
     font-size: 16px;
     font-weight: 500;
-    animation: fadeIn 300ms ease-out forwards;
-    animation-delay: calc(var(--index) * 50ms);
 }
 
 .time-slot:last-child {
@@ -88,6 +94,10 @@
 
 .time-slot:hover {
     background: rgba(255, 255, 255, 0.05);
+}
+
+.time-slot.selected {
+    color: #6366f1;
 }
 
 .time-slot.unavailable {

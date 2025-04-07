@@ -206,7 +206,6 @@ const ServiceSelector = ({ onContinue, onBack }) => {
             )}
 
             <div className={`selected-services-popup ${showSelectedServices ? 'visible' : ''}`} onClick={(e) => {
-                // Close popup when clicking the backdrop
                 if (e.target === e.currentTarget) {
                     setShowSelectedServices(false);
                 }
@@ -240,15 +239,22 @@ const ServiceSelector = ({ onContinue, onBack }) => {
                         ))}
                     </div>
                     <div className="selected-services-total">
-                        <div className="total-label">Total</div>
-                        <div className="total-value">
-                            ${selectedServices.reduce((sum, s) => sum + s.price, 0)} • {selectedServices.reduce((sum, s) => sum + s.duration, 0)} mins
-                        </div>
+                        <div>Total</div>
+                        <div>${selectedServices.reduce((sum, s) => sum + s.price, 0)} • {selectedServices.reduce((sum, s) => sum + s.duration, 0)} mins</div>
                     </div>
+                    <button
+                        className="continue-button"
+                        onClick={() => {
+                            setShowSelectedServices(false);
+                            onContinue(selectedServices.reduce((sum, s) => sum + s.duration, 0));
+                        }}
+                    >
+                        Continue
+                    </button>
                 </div>
             </div>
         </div>
     );
 };
 
-export default ServiceSelector; 
+export default ServiceSelector;

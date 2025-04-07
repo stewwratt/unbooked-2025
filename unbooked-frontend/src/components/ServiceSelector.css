@@ -160,11 +160,11 @@
 
 .service-check::before {
     content: '';
-    width: 6px;
-    height: 10px;
+    width: 5px;
+    height: 8px;
     border: solid #fff;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg) translate(-1px, -1px);
+    border-width: 0 1.5px 1.5px 0;
+    transform: rotate(45deg) translate(-0.5px, -0.5px);
     display: block;
 }
 
@@ -179,7 +179,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: #111;
+    background: #000;
     padding: 16px 24px;
     display: flex;
     align-items: center;
@@ -190,10 +190,12 @@
 
 .bottom-bar>div {
     width: 100%;
-    max-width: 600px;
+    max-width: 432px;
+    /* 600px - 24px * 2 to account for parent padding */
     display: flex;
     align-items: center;
     justify-content: space-between;
+    box-sizing: border-box;
 }
 
 .booking-summary-container {
@@ -215,9 +217,10 @@
     background: #6366f1;
     color: #fff;
     border: none;
-    padding: 12px 24px;
+    padding: 14px 32px;
     border-radius: 100px;
     font-weight: 500;
+    font-size: 16px;
     cursor: pointer;
     margin-left: 16px;
 }
@@ -241,7 +244,7 @@
 }
 
 .selected-services-content {
-    background: #111;
+    background: #000;
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
@@ -289,6 +292,10 @@
     align-items: center;
     padding: 16px 0;
     border-bottom: 1px solid #222;
+}
+
+.selected-service-item:last-child {
+    border-bottom: none;
 }
 
 .selected-service-info {
@@ -347,4 +354,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.selected-services-content .continue-button {
+    width: 100%;
+    margin: 24px 0 0 0;
+    justify-content: center;
+    display: flex;
 }
