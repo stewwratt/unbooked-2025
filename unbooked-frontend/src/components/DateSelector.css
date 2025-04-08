@@ -1,5 +1,5 @@
 .date-selector {
-    padding: 16px 24px;
+    padding: 32px 24px 16px;
     background: #000;
     position: relative;
     border-bottom: none;
@@ -8,14 +8,14 @@
 .date-scroll {
     display: flex;
     overflow-x: auto;
-    gap: 8px;
+    gap: 12px;
     padding: 4px 0;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    margin-right: 48px;
+    margin-right: 56px;
     /* Space for calendar button */
-    mask-image: linear-gradient(to right, black 90%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, black 90%, transparent 100%);
+    mask-image: linear-gradient(to right, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 92%, transparent 100%);
 }
 
 .date-scroll::-webkit-scrollbar {
@@ -27,30 +27,43 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-width: 48px;
-    height: 48px;
+    min-width: 52px;
+    height: 64px;
     border: none;
     background: none;
-    border-radius: 24px;
+    border-radius: 16px;
     padding: 0;
-    gap: 0;
+    gap: 2px;
     color: #fff;
     text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.date-button:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.date-button:active {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .date-button.selected {
     background-color: #6366f1;
-    color: white;
+}
+
+.date-button.selected:hover {
+    background-color: #5355d8;
 }
 
 .day-number {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 500;
     line-height: 24px;
 }
 
 .day-name {
-    font-size: 12px;
+    font-size: 13px;
     color: #999;
     line-height: 16px;
 }
@@ -62,7 +75,7 @@
 .calendar-button {
     position: absolute;
     right: 24px;
-    top: 50%;
+    top: 52%;
     transform: translateY(-50%);
     width: 40px;
     height: 40px;
@@ -73,6 +86,17 @@
     border: none;
     border-radius: 20px;
     color: #fff;
+}
+
+.calendar-button::before {
+    content: '📅';
+    filter: grayscale(1) brightness(2);
+    font-size: 24px;
+    transform: translateY(1px);
+}
+
+.calendar-button:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .calendar-popup {

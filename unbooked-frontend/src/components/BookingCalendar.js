@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import DateSelector from './DateSelector';
 import './BookingCalendar.css';
-import placeholder from '../assets/placeholder.png';
+import placeholder from '../assets/placeholder.jpg';
 
 const BookingCalendar = ({ totalDuration, onBack, professional }) => {
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -41,21 +41,23 @@ const BookingCalendar = ({ totalDuration, onBack, professional }) => {
                     <span className="provider-arrow">▼</span>
                 </button>
                 <div className={`provider-dropdown ${isDropdownOpen ? 'visible' : ''}`}>
-                    {providers.map(provider => (
-                        <button
-                            key={provider.id}
-                            className="provider-option"
-                            onClick={() => {
-                                setSelectedProvider(provider);
-                                setIsDropdownOpen(false);
-                            }}
-                        >
-                            <div className="provider-image">
-                                <img src={provider.avatar} alt={provider.name} />
-                            </div>
-                            <span className="provider-name">{provider.name}</span>
-                        </button>
-                    ))}
+                    {providers
+                        .filter(provider => provider.id !== selectedProvider.id)
+                        .map(provider => (
+                            <button
+                                key={provider.id}
+                                className="provider-option"
+                                onClick={() => {
+                                    setSelectedProvider(provider);
+                                    setIsDropdownOpen(false);
+                                }}
+                            >
+                                <div className="provider-image">
+                                    <img src={provider.avatar} alt={provider.name} />
+                                </div>
+                                <span className="provider-name">{provider.name}</span>
+                            </button>
+                        ))}
                 </div>
             </div>
             <DateSelector

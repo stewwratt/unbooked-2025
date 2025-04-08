@@ -82,13 +82,17 @@
     gap: 1px;
     background: #000;
     flex: 1;
-    padding-bottom: 80px;
+    padding: 0 0 80px;
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .service-item {
     background: #000;
     border: none;
-    padding: 24px;
+    padding: 24px 24px;
     text-align: left;
     color: #fff;
     position: relative;

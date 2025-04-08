@@ -40,23 +40,110 @@
 .provider-selector {
     padding: 0 24px;
     margin-bottom: 24px;
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
 }
 
 .provider-button {
-    background: rgba(255, 255, 255, 0.1);
+    background: #fff;
     border: none;
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 12px 20px;
-    cursor: pointer;
-    border-radius: 100px;
     width: fit-content;
-    transition: background-color 0.3s ease;
+    min-width: 140px;
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    color: #000;
+    position: relative;
+    z-index: 2;
 }
 
 .provider-button:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: #f8f8f8;
+}
+
+.provider-image {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+    margin-right: 8px;
+}
+
+.provider-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.provider-name {
+    flex: 1;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+}
+
+.provider-arrow {
+    font-size: 10px;
+    margin-left: 4px;
+    opacity: 0.5;
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+    color: #000;
+}
+
+.provider-button.open .provider-arrow {
+    transform: rotate(180deg);
+}
+
+.provider-dropdown {
+    position: absolute;
+    top: 0;
+    left: 24px;
+    width: fit-content;
+    min-width: 140px;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    opacity: 0;
+    transform-origin: top;
+    transform: scaleY(0.9);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    padding-top: 44px;
+    z-index: 1;
+}
+
+.provider-dropdown.visible {
+    opacity: 1;
+    transform: scaleY(1);
+    pointer-events: auto;
+}
+
+.provider-option {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    background: none;
+    color: #000;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.provider-option:hover {
+    background: #f8f8f8;
 }
 
 .time-slots {
@@ -74,7 +161,7 @@
 .time-slot {
     background: #000;
     border: none;
-    padding: 24px 0;
+    padding: 24px 24px;
     text-align: left;
     color: #fff;
     position: relative;

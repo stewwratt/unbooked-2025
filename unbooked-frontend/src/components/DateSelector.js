@@ -36,7 +36,7 @@ const DateSelector = ({ onDateSelect, selectedDate }) => {
                 className="calendar-button"
                 onClick={() => setShowCalendarPopup(true)}
             >
-                📅
+                {/* Remove the 📅 emoji from here */}
             </button>
 
             {showCalendarPopup && (
