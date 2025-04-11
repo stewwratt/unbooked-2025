@@ -1,0 +1,170 @@
+.time-slot {
+    position: relative;
+    background: #000;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    z-index: 1;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: #fff;
+}
+
+/* Base styling for available slots */
+.time-slot.available {
+    background: #111;
+}
+
+/* Offer glow effect */
+.time-slot.offer-available {
+    position: relative;
+}
+
+.time-slot.offer-available::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    /* Slightly larger than the container */
+    background: linear-gradient(135deg,
+            rgba(255, 59, 208, 1) 0%,
+            rgba(122, 66, 246, 1) 50%,
+            rgba(41, 151, 255, 1) 100%);
+    border-radius: 18px;
+    z-index: -1;
+    animation: siriGlow 8s infinite alternate;
+}
+
+.time-slot.offer-available::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background: #111;
+    border-radius: 14px;
+    z-index: -1;
+}
+
+/* Animation for the glow effect */
+@keyframes siriGlow {
+    0% {
+        opacity: 0.7;
+        filter: blur(8px);
+        background-position: 0% 50%;
+    }
+
+    50% {
+        opacity: 1;
+        filter: blur(6px);
+        background-position: 100% 50%;
+    }
+
+    100% {
+        opacity: 0.7;
+        filter: blur(8px);
+        background-position: 0% 50%;
+    }
+}
+
+/* Countdown halo/timer styling */
+.countdown {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.countdown::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #6366f1;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.4;
+    }
+}
+
+/* Time slot content styling */
+.slot-time {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.slot-date {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 16px;
+}
+
+.provider-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.provider-image {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.provider-name {
+    font-weight: 500;
+}
+
+/* CTA buttons */
+.slot-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.book-button,
+.offer-button {
+    flex: 1;
+    padding: 14px 0;
+    border-radius: 100px;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.book-button {
+    background: #6366f1;
+    color: #fff;
+}
+
+.book-button:hover {
+    background: #5355d8;
+}
+
+.offer-button {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    backdrop-filter: blur(10px);
+}
+
+.offer-button:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
