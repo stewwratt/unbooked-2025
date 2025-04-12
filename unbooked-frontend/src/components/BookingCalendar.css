@@ -279,24 +279,45 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #6366f1;
+    background: var(--pulse-color, #6366f1);
+    /* Default color */
     animation: enhancedPulse 2s infinite;
 }
 
+/* Add a new class for different urgency levels */
+.countdown.urgent::before {
+    --pulse-color: #ff3ba0;
+    /* Reddish-purple for urgent offers */
+}
+
+.countdown.medium::before {
+    --pulse-color: #a742f6;
+    /* Purple for medium urgency */
+}
+
+.countdown.plenty::before {
+    --pulse-color: #2997ff;
+    /* Blue for plenty of time left */
+}
+
+/* Update the pulse animation to include color changes */
 @keyframes enhancedPulse {
     0% {
         opacity: 0.4;
         transform: scale(0.8);
+        box-shadow: 0 0 2px var(--pulse-color, #6366f1);
     }
 
     50% {
         opacity: 1;
         transform: scale(1.1);
+        box-shadow: 0 0 8px var(--pulse-color, #6366f1);
     }
 
     100% {
         opacity: 0.4;
         transform: scale(0.8);
+        box-shadow: 0 0 2px var(--pulse-color, #6366f1);
     }
 }
 
@@ -429,18 +450,29 @@
     font-weight: 500;
 }
 
+.booking-message {
+    margin-bottom: 20px;
+    padding: 12px 16px;
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.booking-message.offer-message {
+    background: rgba(78, 160, 101, 0.1);
+}
+
 .booking-inputs {
     display: flex;
     flex-direction: column;
     gap: 20px;
     margin-bottom: 24px;
-    /* More space before button */
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
 }
 
 .form-group label {
@@ -449,27 +481,48 @@
 }
 
 .form-group input {
+    padding: 12px 16px;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
-    padding: 12px 16px;
     color: #fff;
-    font-size: 16px;
-    width: 100%;
-    box-sizing: border-box;
+    font-size: 15px;
+    transition: border-color 0.2s ease;
 }
 
 .form-group input:focus {
     outline: none;
-    border-color: #6366f1;
+    border-color: rgba(99, 102, 241, 0.6);
+}
+
+.form-group input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 14px;
+}
+
+.payment-group {
+    margin-top: 8px;
+}
+
+.card-element-placeholder {
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.card-element-info {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 14px;
+    font-style: italic;
 }
 
 .confirm-booking-button {
     width: 100%;
     padding: 16px;
-    margin-top: 8px;
-    margin-bottom: 0;
-    /* Removed the 16px margin */
     background: #6366f1;
     color: #fff;
     border: none;
@@ -478,6 +531,7 @@
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-top: 16px;
 }
 
 .confirm-booking-button:hover {
@@ -488,26 +542,20 @@
 .form-close-button-container {
     display: flex;
     justify-content: flex-end;
-    width: 100%;
     margin-bottom: 16px;
 }
 
 .form-close-button {
-    width: auto;
-    min-width: 100px;
-    padding: 10px 20px;
-    border-radius: 100px;
-    font-weight: 500;
-    text-align: center;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 15px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.05);
-    color: #fff;
-    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 4px;
 }
 
 .form-close-button:hover {
     background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.8);
 }
