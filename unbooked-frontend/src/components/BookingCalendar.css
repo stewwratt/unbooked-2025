@@ -197,28 +197,30 @@
     cursor: not-allowed;
 }
 
-/* Refined time slots without profile picture */
+/* Enhanced offer slot styling with more dynamic animation */
 .time-slot.offer-available {
     position: relative;
     z-index: 1;
     border: none;
+    transform: translateZ(0);
+    /* Hardware acceleration for smoother animation */
 }
 
 .time-slot.offer-available::before {
     content: "";
     position: absolute;
-    inset: -1px;
+    inset: -3px;
     background: linear-gradient(90deg,
-            rgba(255, 59, 208, 0.4) 0%,
-            rgba(122, 66, 246, 0.4) 30%,
-            rgba(41, 151, 255, 0.4) 60%,
-            rgba(255, 59, 208, 0.4) 100%);
-    border-radius: 13px;
+            rgba(255, 59, 208, 0.7) 0%,
+            rgba(122, 66, 246, 0.7) 30%,
+            rgba(41, 151, 255, 0.7) 60%,
+            rgba(255, 59, 208, 0.7) 100%);
+    border-radius: 15px;
     z-index: -1;
     background-size: 300% 100%;
-    animation: borderFlow 12s ease infinite;
-    /* Slightly faster for more dynamics */
-    filter: blur(5px);
+    animation: borderFlow 8s linear infinite;
+    filter: blur(8px);
+    will-change: background-position, filter;
 }
 
 .time-slot.offer-available::after {
@@ -228,23 +230,44 @@
     background: #000;
     border-radius: 11px;
     z-index: -1;
+    transition: all 0.3s ease;
+}
+
+/* Special enhanced styling for selected offer slots */
+.time-slot.offer-available.selected::before {
+    inset: -4px;
+    background: linear-gradient(90deg,
+            rgba(255, 59, 208, 0.9) 0%,
+            rgba(122, 66, 246, 0.9) 30%,
+            rgba(41, 151, 255, 0.9) 60%,
+            rgba(255, 59, 208, 0.9) 100%);
+    animation: borderFlow 6s linear infinite;
+    filter: blur(10px);
+    animation-play-state: running !important;
+}
+
+.time-slot.offer-available.selected::after {
+    background: rgba(0, 0, 0, 0.9);
+    /* Slightly transparent inner background */
 }
 
 @keyframes borderFlow {
     0% {
         background-position: 0% 50%;
-        filter: blur(5px);
+        filter: blur(8px);
+        transform: scale(1.01);
     }
 
     50% {
         background-position: 100% 50%;
-        filter: blur(7px);
-        /* Slightly more variation in blur */
+        filter: blur(12px);
+        transform: scale(1.02);
     }
 
     100% {
         background-position: 0% 50%;
-        filter: blur(5px);
+        filter: blur(8px);
+        transform: scale(1.01);
     }
 }
 
@@ -344,7 +367,21 @@
     color: #6366f1;
     margin: 8px 0 12px;
     font-weight: 500;
-    /* Slightly bolder */
+    animation: textPulse 3s infinite ease-in-out;
+    animation-play-state: running !important;
+    /* Force animation to continue */
+}
+
+@keyframes textPulse {
+
+    0%,
+    100% {
+        opacity: 0.9;
+    }
+
+    50% {
+        opacity: 1;
+    }
 }
 
 /* Consistent button styling */
@@ -558,4 +595,111 @@
 .form-close-button:hover {
     background: rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255, 0.8);
+}
+
+/* Toggle switch styling */
+.toggle-container {
+    margin: 8px 0;
+}
+
+.toggle-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.toggle-input {
+    height: 0;
+    width: 0;
+    opacity: 0;
+    position: absolute;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 24px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    transition: all 0.3s;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.toggle-switch:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 2px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.toggle-input:checked+.toggle-switch {
+    background-color: #6366f1;
+}
+
+.toggle-input:checked+.toggle-switch:before {
+    transform: translateX(24px);
+}
+
+.toggle-text {
+    font-size: 15px;
+}
+
+.field-note {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 4px;
+    font-style: italic;
+}
+
+/* Make offer button more vibrant */
+.offer-button {
+    background: rgba(122, 66, 246, 0.8);
+    /* More vibrant purple */
+    color: #fff;
+    box-shadow: 0 2px 12px rgba(122, 66, 246, 0.3);
+    transition: all 0.3s ease;
+}
+
+.offer-button:hover {
+    background: rgba(122, 66, 246, 1);
+    box-shadow: 0 4px 16px rgba(122, 66, 246, 0.5);
+    transform: translateY(-1px);
+}
+
+/* Prevent any pausing of animations on the selected state */
+.time-slot.selected * {
+    animation-play-state: running !important;
+}
+
+/* Add a subtle pulsing effect to the entire slot when selected */
+.time-slot.offer-available.selected {
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+    animation: subtlePulse 3s infinite alternate;
+}
+
+@keyframes subtlePulse {
+    0% {
+        box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+    }
+
+    100% {
+        box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+    }
+}
+
+/* Ensure all animations continue playing even in selected state */
+.time-slot.selected,
+.time-slot.selected::before,
+.time-slot.selected::after {
+    animation-play-state: running !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }

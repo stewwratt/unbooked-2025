@@ -280,3 +280,15 @@
 .back-to-calendar:hover {
     background: #5355d8;
 }
+
+.offer-status {
+    color: #4ea065;
+    border-top: 1px dashed rgba(78, 160, 101, 0.3);
+    padding-top: 12px;
+}
+
+.offers-note {
+    display: block;
+    margin-top: 8px;
+    color: #4ea065;
+}

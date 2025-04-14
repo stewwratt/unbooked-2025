@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import DateSelector from './DateSelector';
 import './BookingCalendar.css';
-import placeholder from '../assets/placeholder.jpg';
 import BookingConfirmation from './BookingConfirmation';
 
 // Define the default provider
@@ -20,6 +19,7 @@ const BookingCalendar = ({ totalDuration, onBack, professional }) => {
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [confirmationType, setConfirmationType] = useState(null);
     const [confirmationDetails, setConfirmationDetails] = useState({});
+    const [openToOffers, setOpenToOffers] = useState(false);
 
     // Mock providers data
     const providers = [
@@ -81,25 +81,6 @@ const BookingCalendar = ({ totalDuration, onBack, professional }) => {
         }
     };
 
-    // Add a click handler to safely interact with form elements
-    const handleFormClick = (e) => {
-        // Stop propagation to prevent the slot's onClick from firing
-        e.stopPropagation();
-    };
-
-    const handleContinueBooking = () => {
-        // Handle the final booking action
-        console.log("Booking confirmed for slot:", selectedTimeSlot);
-        // Navigate to next step or submit booking
-    };
-
-    // Add this handler for closing the form
-    const handleCloseForm = (e) => {
-        e.stopPropagation();
-        setBookingExpanded(false);
-        setSelectedTimeSlot(null);
-    };
-
     // Add a ref for the calendar container
     const calendarRef = useRef(null);
 
@@ -126,10 +107,10 @@ const BookingCalendar = ({ totalDuration, onBack, professional }) => {
         const email = document.getElementById('email').value;
         const phone = document.getElementById('phone').value;
         const location = document.getElementById('location').value;
-        const offerAcceptance = document.getElementById('offer-acceptance').value;
+        const offerAcceptance = openToOffers ? document.getElementById('offer-acceptance').value : null;
 
         // Validate form
-        if (!name || !email || !phone || !location || !offerAcceptance) {
+        if (!name || !email || !phone || !location || (openToOffers && !offerAcceptance)) {
             console.error("Please fill out all fields");
             return;
         }
@@ -146,7 +127,8 @@ const BookingCalendar = ({ totalDuration, onBack, professional }) => {
             email,
             phone,
             location,
-            offerAcceptance
+            openToOffers,
+            offerAcceptance: openToOffers ? offerAcceptance : null
         });
 
         // Close the form
@@ -166,7 +148,9 @@ const BookingCalendar = ({ totalDuration, onBack, professional }) => {
             date: formattedDate,
             time: selectedTimeSlot.time,
             price: selectedTimeSlot.price,
-            service: "Hair Service" // You can make this dynamic based on selected services
+            service: "Hair Service", // You can make this dynamic based on selected services
+            openToOffers: openToOffers,
+            minAcceptableOffer: openToOffers ? offerAcceptance : null
         });
 
         setConfirmationType('booking');
@@ -389,55 +373,71 @@ const BookingCalendar = ({ totalDuration, onBack, professional }) => {
                                         </div>
                                     </div>
 
-                                    {slot.status === "available" ? (
-                                        <div className="booking-message">
-                                            <p>Your payment will be authorized now but only processed 3 hours before the service delivery.</p>
-                                        </div>
-                                    ) : (
-                                        <div className="booking-message offer-message">
-                                            <p>This slot is currently booked. You may make an offer to take over the booking.</p>
-                                        </div>
-                                    )}
-
-                                    <div className="booking-inputs">
-                                        <div className="form-group">
-                                            <label htmlFor="name">Full Name</label>
-                                            <input type="text" id="name" placeholder="Your full name" required />
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="email">Email</label>
-                                            <input type="email" id="email" placeholder="your@email.com" required />
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="phone">Phone</label>
-                                            <input type="tel" id="phone" placeholder="Your phone number" required />
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="location">Service Location</label>
-                                            <input type="text" id="location" placeholder="Your address or preferred location" required />
-                                        </div>
-
-                                        {slot.status === "available" ? (
-                                            <div className="form-group">
-                                                <label htmlFor="offer-acceptance">If someone offers to buy your slot, how much would you accept? ($)</label>
-                                                <input type="number" id="offer-acceptance" placeholder="0.00" min="0" step="0.01" required />
+                                    {slot.status === "available" && (
+                                        <>
+                                            <div className="booking-message">
+                                                <p>Your payment will be authorized now but only processed 3 hours before the service delivery.</p>
                                             </div>
-                                        ) : (
-                                            <div className="form-group">
-                                                <label htmlFor="offer-amount">Your Offer Amount ($)</label>
-                                                <input type="number" id="offer-amount" placeholder="0.00" min={slot.price + 1} step="0.01" required />
-                                            </div>
-                                        )}
 
-                                        <div className="form-group payment-group">
-                                            <label htmlFor="card-element">Payment Details</label>
-                                            <div className="card-element-placeholder">
-                                                <div className="card-element-info">
-                                                    Credit or debit card information will be collected here using Stripe
+                                            <div className="booking-inputs">
+                                                <div className="form-group">
+                                                    <label htmlFor="name">Full Name</label>
+                                                    <input type="text" id="name" placeholder="Your full name" required />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label htmlFor="email">Email</label>
+                                                    <input type="email" id="email" placeholder="your@email.com" required />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label htmlFor="phone">Phone</label>
+                                                    <input type="tel" id="phone" placeholder="Your phone number" required />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label htmlFor="location">Service Location</label>
+                                                    <input type="text" id="location" placeholder="Your address or preferred location" required />
+                                                </div>
+
+                                                <div className="form-group toggle-container">
+                                                    <label className="toggle-label">
+                                                        <input
+                                                            type="checkbox"
+                                                            className="toggle-input"
+                                                            checked={openToOffers}
+                                                            onChange={() => setOpenToOffers(!openToOffers)}
+                                                        />
+                                                        <span className="toggle-switch"></span>
+                                                        <span className="toggle-text">Make my booking open to offers</span>
+                                                    </label>
+                                                </div>
+
+                                                {openToOffers && (
+                                                    <div className="form-group">
+                                                        <label htmlFor="offer-acceptance">Minimum acceptable offer ($)</label>
+                                                        <input
+                                                            type="number"
+                                                            id="offer-acceptance"
+                                                            placeholder="0.00"
+                                                            min={slot.price}
+                                                            step="0.01"
+                                                            required={openToOffers}
+                                                        />
+                                                        <div className="field-note">
+                                                            Others can offer to take your slot. You'll be notified and paid if you accept their offer.
+                                                        </div>
+                                                    </div>
+                                                )}
+
+                                                <div className="form-group payment-group">
+                                                    <label htmlFor="card-element">Payment Details</label>
+                                                    <div className="card-element-placeholder">
+                                                        <div className="card-element-info">
+                                                            Credit or debit card information will be collected here using Stripe
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
+                                        </>
+                                    )}
 
                                     <button
                                         className="confirm-booking-button"

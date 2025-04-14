@@ -62,8 +62,19 @@ const BookingConfirmation = ({ type, details, onClose }) => {
                                     <span>Price</span>
                                     <span>${details.price}</span>
                                 </div>
+
+                                {details.openToOffers && (
+                                    <div className="summary-row offer-status">
+                                        <span>Min. Acceptable Offer</span>
+                                        <span>${details.minAcceptableOffer}</span>
+                                    </div>
+                                )}
+
                                 <div className="summary-note">
                                     Your payment will be processed 3 hours before your appointment.
+                                    {details.openToOffers && (
+                                        <span className="offers-note"> Your booking is open to offers. You'll be notified if someone makes an offer above your minimum.</span>
+                                    )}
                                 </div>
                             </>
                         )}
