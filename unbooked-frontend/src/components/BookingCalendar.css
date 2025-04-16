@@ -703,3 +703,73 @@
     animation-play-state: running !important;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+.offer-form {
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+}
+
+.offer-form .form-group {
+    margin-bottom: 16px;
+}
+
+.offer-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.offer-form input {
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.offer-form input:focus {
+    outline: none;
+    border-color: rgba(122, 66, 246, 0.8);
+}
+
+.form-actions {
+    margin-top: 20px;
+}
+
+.submit-booking,
+.submit-offer {
+    width: 100%;
+    padding: 14px;
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-booking {
+    background: #6366f1;
+}
+
+.submit-booking:hover {
+    background: #5355d8;
+    transform: translateY(-1px);
+}
+
+.submit-offer {
+    background: rgba(122, 66, 246, 0.8);
+    box-shadow: 0 2px 12px rgba(122, 66, 246, 0.3);
+}
+
+.submit-offer:hover {
+    background: rgba(122, 66, 246, 1);
+    box-shadow: 0 4px 16px rgba(122, 66, 246, 0.5);
+    transform: translateY(-1px);
+}

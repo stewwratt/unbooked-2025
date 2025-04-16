@@ -354,7 +354,7 @@ const BookingCalendar = ({ totalDuration, onBack, professional }) => {
                                 </div>
 
                                 <div className="booking-form">
-                                    <h3>Complete your booking with {selectedProvider.name}</h3>
+                                    <h3>{slot.status === "available" ? `Book with ${selectedProvider.name}` : `Make an offer to ${selectedProvider.name}`}</h3>
 
                                     <div className="booking-details">
                                         <div className="booking-detail-item">
@@ -368,45 +368,42 @@ const BookingCalendar = ({ totalDuration, onBack, professional }) => {
                                             <span className="detail-value">{slot.time}</span>
                                         </div>
                                         <div className="booking-detail-item">
-                                            <span className="detail-label">Price:</span>
+                                            <span className="detail-label">{slot.status === "available" ? "Price" : "Minimum Offer"}:</span>
                                             <span className="detail-value">${slot.price}</span>
                                         </div>
                                     </div>
 
-                                    {slot.status === "available" && (
-                                        <>
-                                            <div className="booking-message">
-                                                <p>Your payment will be authorized now but only processed 3 hours before the service delivery.</p>
-                                            </div>
+                                    <div className="booking-inputs">
+                                        <div className="form-group">
+                                            <label htmlFor="name">Full Name</label>
+                                            <input type="text" id="name" placeholder="Your full name" required />
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="email">Email</label>
+                                            <input type="email" id="email" placeholder="your@email.com" required />
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="phone">Phone</label>
+                                            <input type="tel" id="phone" placeholder="Your phone number" required />
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="location">Service Location</label>
+                                            <input type="text" id="location" placeholder="Your address or preferred location" required />
+                                        </div>
 
-                                            <div className="booking-inputs">
-                                                <div className="form-group">
-                                                    <label htmlFor="name">Full Name</label>
-                                                    <input type="text" id="name" placeholder="Your full name" required />
-                                                </div>
-                                                <div className="form-group">
-                                                    <label htmlFor="email">Email</label>
-                                                    <input type="email" id="email" placeholder="your@email.com" required />
-                                                </div>
-                                                <div className="form-group">
-                                                    <label htmlFor="phone">Phone</label>
-                                                    <input type="tel" id="phone" placeholder="Your phone number" required />
-                                                </div>
-                                                <div className="form-group">
-                                                    <label htmlFor="location">Service Location</label>
-                                                    <input type="text" id="location" placeholder="Your address or preferred location" required />
-                                                </div>
-
-                                                <div className="form-group toggle-container">
+                                        {slot.status === "available" ? (
+                                            // Normal booking fields
+                                            <>
+                                                <div className="toggle-container">
                                                     <label className="toggle-label">
                                                         <input
                                                             type="checkbox"
                                                             className="toggle-input"
                                                             checked={openToOffers}
-                                                            onChange={() => setOpenToOffers(!openToOffers)}
+                                                            onChange={(e) => setOpenToOffers(e.target.checked)}
                                                         />
                                                         <span className="toggle-switch"></span>
-                                                        <span className="toggle-text">Make my booking open to offers</span>
+                                                        <span className="toggle-text">Open to offers from others</span>
                                                     </label>
                                                 </div>
 
@@ -426,31 +423,41 @@ const BookingCalendar = ({ totalDuration, onBack, professional }) => {
                                                         </div>
                                                     </div>
                                                 )}
-
-                                                <div className="form-group payment-group">
-                                                    <label htmlFor="card-element">Payment Details</label>
-                                                    <div className="card-element-placeholder">
-                                                        <div className="card-element-info">
-                                                            Credit or debit card information will be collected here using Stripe
-                                                        </div>
-                                                    </div>
+                                            </>
+                                        ) : (
+                                            // Offer booking fields
+                                            <div className="form-group">
+                                                <label htmlFor="offer-amount">Your Offer ($)</label>
+                                                <input
+                                                    type="number"
+                                                    id="offer-amount"
+                                                    placeholder={`Min: $${slot.price}`}
+                                                    min={slot.price}
+                                                    step="0.01"
+                                                    required
+                                                />
+                                                <div className="field-note">
+                                                    Your offer must be higher than ${slot.price}
                                                 </div>
                                             </div>
-                                        </>
-                                    )}
+                                        )}
 
-                                    <button
-                                        className="confirm-booking-button"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            // Handle booking or offer submission
-                                            slot.status === "available"
-                                                ? handleBookingSubmission()
-                                                : handleOfferSubmission();
-                                        }}
-                                    >
-                                        {slot.status === "available" ? "Confirm Booking" : "Submit Offer"}
-                                    </button>
+                                        <div className="form-group payment-group">
+                                            <label htmlFor="card-element">Payment Details</label>
+                                            <div className="card-element-placeholder">
+                                                <div className="card-element-info">
+                                                    Credit or debit card information will be collected here using Stripe
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button
+                                            className={slot.status === "available" ? "submit-booking" : "submit-offer"}
+                                            onClick={slot.status === "available" ? handleBookingSubmission : handleOfferSubmission}
+                                        >
+                                            {slot.status === "available" ? "Book Now" : "Submit Offer"}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         )}
