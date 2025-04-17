@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navigation.css';
+import unbookedLogo from '../../assets/unbooked-logo.png';
 
 const Navigation = () => {
     // Temporary auth state (will be replaced with context)
@@ -11,12 +12,13 @@ const Navigation = () => {
         <nav className="main-nav">
             <div className="nav-container">
                 <div className="nav-logo">
-                    <Link to="/">Unbooked</Link>
+                    <Link to="/"><img src={unbookedLogo} alt="Unbooked" width="150" /></Link>
                 </div>
 
                 <div className="nav-links">
                     <Link to="/">Home</Link>
                     <Link to="/booking">Book Service</Link>
+                    <Link to="/onboarding">Onboarding</Link>
 
                     {!isAuthenticated ? (
                         <>

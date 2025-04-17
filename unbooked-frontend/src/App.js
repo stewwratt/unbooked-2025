@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import ServiceBooking from './components/ServiceBooking';
 import Navigation from './components/common/Navigation';
+import OnboardingPage from './components/onboarding/OnboardingPage';
 import './App.css';
 
 // Placeholder components (we'll implement these next)
@@ -26,6 +27,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/booking" element={<ServiceBooking />} />
+            <Route path="/onboarding" element={<OnboardingPage />} />
 
             {/* Protected routes */}
             <Route
