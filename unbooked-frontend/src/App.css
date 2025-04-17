@@ -5,6 +5,12 @@
   background: #000;
 }
 
+.app-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .logo-container {
   padding: 16px;
   background: #000;
@@ -23,6 +29,8 @@
   flex: 1;
   padding: 0 24px;
   box-sizing: border-box;
+  color: #fff;
+  padding-top: 40px;
 }
 
 .logo {
