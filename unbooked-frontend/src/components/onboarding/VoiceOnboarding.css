@@ -156,38 +156,62 @@
     gap: 16px;
 }
 
-.start-button,
+.active-controls {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+}
+
 .end-button {
-    padding: 12px 24px;
-    border-radius: 100px;
-    font-size: 16px;
-    font-weight: 500;
+    flex: 1;
+    padding: 12px;
+    background-color: #ef4444;
+    color: white;
     border: none;
+    border-radius: 6px;
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.2s;
+}
+
+.end-button:hover {
+    background-color: #dc2626;
+}
+
+.mute-button {
+    padding: 12px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.mute-button.muted {
+    background-color: #6366f1;
 }
 
 .start-button {
+    width: 100%;
+    padding: 12px;
     background-color: #6366f1;
     color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 
 .start-button:hover:not(:disabled) {
-    background-color: #5355d8;
+    background-color: #4f46e5;
 }
 
 .start-button:disabled {
     background-color: rgba(99, 102, 241, 0.5);
     cursor: not-allowed;
-}
-
-.end-button {
-    background-color: rgba(255, 107, 107, 0.2);
-    color: #ff6b6b;
-}
-
-.end-button:hover {
-    background-color: rgba(255, 107, 107, 0.3);
 }
 
 .mic-permission-error {
@@ -222,4 +246,24 @@
 
 .volume-button.muted:hover {
     background-color: rgba(239, 68, 68, 0.3);
+}
+
+.test-button {
+    background-color: #2d3748;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+.test-button:hover:not(:disabled) {
+    background-color: #4a5568;
+}
+
+.test-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }

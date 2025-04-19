@@ -1,5 +1,6 @@
 import { fromHono } from "chanfana";
 import { Hono } from "hono";
+import { OnboardingChat } from "./endpoints/onboardingChat";
 import { cors } from 'hono/cors';
 
 // Tell Hono about our environment vars
@@ -10,33 +11,25 @@ const app = new Hono<{
 	};
 }>();
 
-// Middleware - allow CORS for your frontend
+// Middleware - allow CORS for development
 app.use('*', cors({
-	origin: [
-		'http://localhost:3000',            // Development
-		'https://demo.unbooked.me' // Production domain
-	],
-	allowMethods: ['GET', 'POST', 'OPTIONS'],
+	origin: ['http://localhost:3000', 'https://demo.unbooked.me'],
+	allowMethods: ['POST', 'OPTIONS'],
 	allowHeaders: ['Content-Type'],
-	exposeHeaders: ['Content-Length'],
 	maxAge: 600,
 	credentials: true,
 }));
 
+// Simple health check endpoint
+app.get('/', (c) => c.text('✅ Unbooked-backend is up and running!'));
+
 // Setup OpenAPI registry
 const openapi = fromHono(app, {
-	docs_url: "/",
+	docs_url: "/docs",
 });
 
-// src/index.ts
-app.get('/', (c) => c.text('✅ Unbooked‑backend is up and running!'))
-
-// Simple endpoint to get the agent ID - helps keep it secure
-openapi.get("/api/elevenlabs-agent-id", (c) => {
-	return c.json({
-		agentId: c.env.ELEVENLABS_AGENT_ID
-	});
-});
+// Only register the onboarding chat endpoint
+openapi.post("/api/onboardingchat", OnboardingChat);
 
 // Export the Hono app
 export default app;
