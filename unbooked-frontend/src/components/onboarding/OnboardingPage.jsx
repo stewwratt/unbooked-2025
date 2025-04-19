@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import OnboardingPrompt from './OnboardingPrompt';
 import VoiceOnboarding from './VoiceOnboarding';
-import { generateSkeletonProfile, mockGenerateSkeletonProfile } from '../../utils/profileGenerationUtils';
+import { mockGenerateSkeletonProfile } from '../../utils/profileGenerationUtils';
 import './OnboardingPage.css';
 
 const OnboardingPage = () => {
