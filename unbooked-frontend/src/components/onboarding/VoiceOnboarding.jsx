@@ -8,6 +8,7 @@ const VoiceOnboarding = ({ onProfileUpdate }) => {
     const [isMuted, setIsMuted] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [extractedProfile, setExtractedProfile] = useState(null);
+    const [agentId, setAgentId] = useState(null);
 
     // UI state
     const [isProcessing, setIsProcessing] = useState(false);
@@ -82,6 +83,29 @@ const VoiceOnboarding = ({ onProfileUpdate }) => {
         requestMicPermission();
     }, []);
 
+    // Fetch agent ID on component mount
+    useEffect(() => {
+        const fetchAgentId = async () => {
+            try {
+                // Use relative path in production
+                const response = await fetch("/api/elevenlabs-agent-id");
+
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch agent ID: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log("Fetched agent ID successfully");
+                setAgentId(data.agentId);
+            } catch (error) {
+                console.error("Error fetching agent ID:", error);
+                setErrorMessage("Failed to fetch agent ID");
+            }
+        };
+
+        fetchAgentId();
+    }, []);
+
     // Update parent component when profile data changes
     useEffect(() => {
         if (extractedProfile) {
@@ -103,11 +127,8 @@ const VoiceOnboarding = ({ onProfileUpdate }) => {
             setIsProcessing(true);
             setErrorMessage("");
 
-            // Get the agent ID from environment variables
-            const agentId = process.env.REACT_APP_ELEVENLABS_AGENT_ID;
-
             if (!agentId) {
-                throw new Error("Missing ElevenLabs Agent ID");
+                throw new Error("Missing ElevenLabs Agent ID - please try again in a moment");
             }
 
             // Start the session with ElevenLabs
@@ -117,7 +138,7 @@ const VoiceOnboarding = ({ onProfileUpdate }) => {
 
             console.log("Started conversation:", conversationId);
 
-            // Add user's first message (this will be spoken to the agent)
+            // Add user's first message
             const firstMessage = "Hi Nova, I'd like to set up my business profile";
             setMessages(prev => [...prev, {
                 role: 'user',
@@ -214,9 +235,10 @@ const VoiceOnboarding = ({ onProfileUpdate }) => {
                     <button
                         className="start-button"
                         onClick={startConversation}
-                        disabled={isProcessing || !hasPermission}
+                        disabled={isProcessing || !hasPermission || !agentId}
                     >
-                        {isProcessing ? 'Connecting...' : 'Start Conversation'}
+                        {isProcessing ? 'Connecting...' :
+                            !agentId ? 'Loading agent...' : 'Start Conversation'}
                     </button>
                 ) : (
                     <>

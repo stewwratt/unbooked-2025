@@ -5,11 +5,9 @@
  * @returns {Promise<Object>} - Contains reply, fields, and sessionId
  */
 export async function sendToNova(sessionId, message) {
-    // Use environment variable for API base URL
-    const BASE = process.env.REACT_APP_API_BASE_URL || "http://localhost:8787";
-
     try {
-        const res = await fetch(`${BASE}/api/onboardingchat`, {
+        // Use relative paths for same-origin requests in production
+        const res = await fetch("/api/onboardingchat", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ sessionId, message })

@@ -14,7 +14,7 @@ const app = new Hono<{
 app.use('*', cors({
 	origin: [
 		'http://localhost:3000',            // Development
-		'https://your-production-domain.com' // Production domain
+		'https://demo.unbooked.me' // Production domain
 	],
 	allowMethods: ['GET', 'POST', 'OPTIONS'],
 	allowHeaders: ['Content-Type'],

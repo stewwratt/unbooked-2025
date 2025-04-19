@@ -16,7 +16,7 @@
 .env
 .env.local
 .env.development
-.env.production
+# .env.production
 .env.development.local
 .env.test.local
 .env.production.local
@@ -26,6 +26,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # env files
-src/.env.production
+# src/.env.production
 src/.env.development
 src/.env

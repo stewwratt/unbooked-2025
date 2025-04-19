@@ -10246,7 +10246,7 @@ app.use("*", cors({
   origin: [
     "http://localhost:3000",
     // Development
-    "https://your-production-domain.com"
+    "https://demo.unbooked.me"
     // Production domain
   ],
   allowMethods: ["GET", "POST", "OPTIONS"],

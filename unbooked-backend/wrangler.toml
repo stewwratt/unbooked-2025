@@ -1,0 +1,9 @@
+name = "unbooked-backend"
+account_id = "a847754bdfface483761bd5f866f9e17" # Replace with your actual account ID
+compatibility_date = "2025-04-19"
+
+# Route configuration for demo.unbooked.me
+route = "demo.unbooked.me/api/*"
+
+# Keep this true if you want the workers.dev preview URL as well
+workers_dev = true
