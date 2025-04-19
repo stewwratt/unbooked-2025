@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import OnboardingPrompt from './OnboardingPrompt';
-// import ProfileEditor from '../profile/ProfileEditor'; // Assuming this exists as mentioned
+import VoiceOnboarding from './VoiceOnboarding';
 import { generateSkeletonProfile, mockGenerateSkeletonProfile } from '../../utils/profileGenerationUtils';
 import './OnboardingPage.css';
 
 const OnboardingPage = () => {
     const navigate = useNavigate();
+    const [onboardingMethod, setOnboardingMethod] = useState('voice'); // 'voice' or 'text'
     const [businessDescription, setBusinessDescription] = useState('');
     const [isGenerating, setIsGenerating] = useState(false);
     const [error, setError] = useState(null);
@@ -35,6 +36,11 @@ const OnboardingPage = () => {
         }
     };
 
+    const handleVoiceProfileUpdate = (profileData) => {
+        console.log('Voice profile data:', profileData);
+        setSkeletonProfile(profileData);
+    };
+
     const handleSaveProfile = (profileData) => {
         // This would be called when the user saves the profile from the ProfileEditor
         console.log('Saving final profile:', profileData);
@@ -50,18 +56,7 @@ const OnboardingPage = () => {
     return (
         <div className="onboarding-page">
             <div className="container">
-                {/* Optional Video/Banner Component */}
                 <div className="banner">
-                    {/* Uncomment and use actual component when available */}
-                    {/* <VideoPlayer src="path/to/intro-video.mp4" /> */}
-                    {/* OR */}
-                    {/* <Banner 
-            title="Welcome to Unbooked" 
-            subtitle="Set up your business profile in minutes" 
-            imageUrl="path/to/banner-image.jpg" 
-          /> */}
-
-                    {/* Placeholder banner */}
                     <div className="placeholder-banner">
                         <h2>Welcome to Unbooked</h2>
                         <p>Set up your business profile in minutes</p>
@@ -70,48 +65,86 @@ const OnboardingPage = () => {
 
                 <h1 className="page-title">Tell us about your business</h1>
 
-                <div className="description-section">
-                    <OnboardingPrompt
-                        value={businessDescription}
-                        onChange={setBusinessDescription}
-                        placeholder={examplePlaceholder}
-                    />
-
-                    {error && (
-                        <div className="error-message">
-                            {error}
-                        </div>
-                    )}
-
+                {/* Onboarding method selector */}
+                <div className="onboarding-method-selector">
                     <button
-                        className="primary-button generate-button"
-                        onClick={handleGenerateProfile}
-                        disabled={isGenerating || !businessDescription.trim()}
+                        className={`method-button ${onboardingMethod === 'voice' ? 'active' : ''}`}
+                        onClick={() => setOnboardingMethod('voice')}
                     >
-                        {isGenerating ? (
-                            <>
-                                <span className="spinner"></span>
-                                Generating Profile...
-                            </>
-                        ) : (
-                            'Generate Profile'
-                        )}
+                        <span className="method-icon">🎤</span>
+                        Voice Chat
+                    </button>
+                    <button
+                        className={`method-button ${onboardingMethod === 'text' ? 'active' : ''}`}
+                        onClick={() => setOnboardingMethod('text')}
+                    >
+                        <span className="method-icon">⌨️</span>
+                        Text Input
                     </button>
                 </div>
 
+                {/* Voice onboarding */}
+                {onboardingMethod === 'voice' && (
+                    <div className="voice-onboarding-container">
+                        <p className="method-description">
+                            Talk with Nova, our AI assistant, to set up your business profile.
+                            Just speak naturally about your services, hours, and location.
+                        </p>
+                        <VoiceOnboarding onProfileUpdate={handleVoiceProfileUpdate} />
+                    </div>
+                )}
+
+                {/* Text onboarding */}
+                {onboardingMethod === 'text' && (
+                    <div className="description-section">
+                        <OnboardingPrompt
+                            value={businessDescription}
+                            onChange={setBusinessDescription}
+                            placeholder={examplePlaceholder}
+                        />
+                        {error && (
+                            <div className="error-message">
+                                {error}
+                            </div>
+                        )}
+                        <button
+                            className="generate-button"
+                            onClick={handleGenerateProfile}
+                            disabled={isGenerating || !businessDescription.trim()}
+                        >
+                            {isGenerating ? (
+                                <>
+                                    <span className="spinner"></span>
+                                    Generating Profile...
+                                </>
+                            ) : (
+                                'Generate Profile'
+                            )}
+                        </button>
+                    </div>
+                )}
+
+                {/* Profile editor section - shown when profile is generated with either method */}
                 {skeletonProfile && (
                     <div className="profile-editor-section">
                         <h2>Review & Edit Your Profile</h2>
                         <p className="editor-info">
-                            We've created an initial profile based on your description.
+                            We've created an initial profile based on your information.
                             Feel free to review and edit the details below.
                         </p>
 
-                        {/* Render the ProfileEditor component with the generated skeleton */}
+                        {/* When your ProfileEditor component is ready, uncomment this */}
                         {/* <ProfileEditor
                             initialData={skeletonProfile}
                             onSave={handleSaveProfile}
                         /> */}
+
+                        {/* Temporary display of profile data */}
+                        <pre className="profile-json">{JSON.stringify(skeletonProfile, null, 2)}</pre>
+
+                        <button className="save-button" onClick={() => handleSaveProfile(skeletonProfile)}>
+                            Complete Setup
+                        </button>
                     </div>
                 )}
             </div>

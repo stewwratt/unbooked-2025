@@ -182,3 +182,84 @@
         padding: 20px;
     }
 }
+
+/* Method selector styles */
+.onboarding-method-selector {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.method-button {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.method-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.method-button.active {
+    background-color: rgba(99, 102, 241, 0.1);
+    border-color: #6366f1;
+    color: #fff;
+}
+
+.method-icon {
+    font-size: 24px;
+}
+
+.method-description {
+    text-align: center;
+    margin-bottom: 24px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.voice-onboarding-container {
+    margin-bottom: 40px;
+}
+
+/* Temporary profile JSON display */
+.profile-json {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 16px;
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.8);
+    overflow: auto;
+    max-height: 300px;
+    font-family: monospace;
+    margin-bottom: 24px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* Save button for profile editor section */
+.save-button {
+    width: 100%;
+    padding: 16px;
+    background: #6366f1;
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 24px;
+}
+
+.save-button:hover {
+    background: #5355d8;
+}

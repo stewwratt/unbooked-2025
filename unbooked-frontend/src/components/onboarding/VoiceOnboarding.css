@@ -1,0 +1,225 @@
+.voice-onboarding {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 48px;
+    display: flex;
+    flex-direction: column;
+    min-height: 500px;
+}
+
+.connection-status {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    margin-bottom: 12px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.connection-status.idle {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.connection-status.recording {
+    background-color: rgba(245, 158, 11, 0.2);
+    color: #f59e0b;
+}
+
+.connection-status.processing {
+    background-color: rgba(245, 158, 11, 0.2);
+    color: #f59e0b;
+}
+
+.connection-status.speaking {
+    background-color: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+}
+
+.connection-status.error {
+    background-color: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+.conversation-container {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 24px;
+    max-height: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.message {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    max-width: 80%;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message.nova {
+    background-color: rgba(99, 102, 241, 0.1);
+    align-self: flex-start;
+}
+
+.message.user {
+    background-color: rgba(78, 160, 101, 0.1);
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.message-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.message.nova .message-avatar {
+    background-color: #6366f1;
+    color: white;
+}
+
+.message.user .message-avatar {
+    background-color: #4ea065;
+    color: white;
+}
+
+.message-content {
+    line-height: 1.5;
+}
+
+.extracted-data {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 24px;
+}
+
+.extracted-data h3 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #6366f1;
+}
+
+.data-preview {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 12px;
+}
+
+.data-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.data-item .label {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.data-item .value {
+    font-size: 16px;
+    color: #fff;
+}
+
+.voice-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.start-button,
+.end-button {
+    padding: 12px 24px;
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.start-button {
+    background-color: #6366f1;
+    color: white;
+}
+
+.start-button:hover:not(:disabled) {
+    background-color: #5355d8;
+}
+
+.start-button:disabled {
+    background-color: rgba(99, 102, 241, 0.5);
+    cursor: not-allowed;
+}
+
+.end-button {
+    background-color: rgba(255, 107, 107, 0.2);
+    color: #ff6b6b;
+}
+
+.end-button:hover {
+    background-color: rgba(255, 107, 107, 0.3);
+}
+
+.mic-permission-error {
+    margin-top: 16px;
+    padding: 12px;
+    text-align: center;
+    background-color: rgba(255, 107, 107, 0.1);
+    border-radius: 8px;
+    color: #ff6b6b;
+}
+
+.volume-button {
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    background-color: rgba(99, 102, 241, 0.15);
+    color: #6366f1;
+    transition: all 0.3s ease;
+}
+
+.volume-button:hover {
+    background-color: rgba(99, 102, 241, 0.3);
+}
+
+.volume-button.muted {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+.volume-button.muted:hover {
+    background-color: rgba(239, 68, 68, 0.3);
+}

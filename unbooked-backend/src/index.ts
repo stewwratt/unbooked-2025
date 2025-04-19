@@ -1,23 +1,42 @@
 import { fromHono } from "chanfana";
 import { Hono } from "hono";
-import { TaskCreate } from "./endpoints/taskCreate";
-import { TaskDelete } from "./endpoints/taskDelete";
-import { TaskFetch } from "./endpoints/taskFetch";
-import { TaskList } from "./endpoints/taskList";
+import { cors } from 'hono/cors';
 
-// Start a Hono app
-const app = new Hono();
+// Tell Hono about our environment vars
+const app = new Hono<{
+	Bindings: {
+		ELEVENLABS_API_KEY: string;
+		ELEVENLABS_AGENT_ID: string;
+	};
+}>();
+
+// Middleware - allow CORS for your frontend
+app.use('*', cors({
+	origin: [
+		'http://localhost:3000',            // Development
+		'https://your-production-domain.com' // Production domain
+	],
+	allowMethods: ['GET', 'POST', 'OPTIONS'],
+	allowHeaders: ['Content-Type'],
+	exposeHeaders: ['Content-Length'],
+	maxAge: 600,
+	credentials: true,
+}));
 
 // Setup OpenAPI registry
 const openapi = fromHono(app, {
 	docs_url: "/",
 });
 
-// Register OpenAPI endpoints
-openapi.get("/api/tasks", TaskList);
-openapi.post("/api/tasks", TaskCreate);
-openapi.get("/api/tasks/:taskSlug", TaskFetch);
-openapi.delete("/api/tasks/:taskSlug", TaskDelete);
+// src/index.ts
+app.get('/', (c) => c.text('✅ Unbooked‑backend is up and running!'))
+
+// Simple endpoint to get the agent ID - helps keep it secure
+openapi.get("/api/elevenlabs-agent-id", (c) => {
+	return c.json({
+		agentId: c.env.ELEVENLABS_AGENT_ID
+	});
+});
 
 // Export the Hono app
 export default app;
