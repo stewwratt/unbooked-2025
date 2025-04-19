@@ -99,9 +99,11 @@ const VoiceOnboarding = ({ onProfileUpdate }) => {
             setIsProcessing(true);
             setErrorMessage('');
 
-            // Use the ElevenLabs agent ID from environment variables
+            // Hard-coded agent ID to prevent undefined in production
+            const AGENT_ID = process.env.REACT_APP_ELEVENLABS_AGENT_ID || "Mfm7TRlJAk6BUoT4JPn3";
+
             const conversationId = await conversation.startSession({
-                agentId: process.env.REACT_APP_ELEVENLABS_AGENT_ID,
+                agentId: AGENT_ID,
             });
 
             console.log("Started conversation:", conversationId);
